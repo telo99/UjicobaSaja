@@ -1,4 +1,6 @@
 <?php
+//tool untuk mengubah daftar bookmark IITC menjadi daftar koordinat.
+//https://youtu.be/hAMli-j7s1c
 $donlot=$_POST["donlot"];
 $data=$_REQUEST["json"];
 $namafile=$_POST["nama"];
