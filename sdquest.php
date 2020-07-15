@@ -1,4 +1,6 @@
 <?php
+// membuat gpx dari daftar koordinat quest dari discord
+// live : http://poke.unaux.com/sdquest.php
 $donlot=$_POST["donlot"];
 $data=$_REQUEST["list"];
 $namafile=$_POST["nama"];
@@ -36,15 +38,7 @@ $lat=$belah[0];
 $lon=$belah[1];
 echo '<wpt lat="'.$lat.'" lon="'.$lon.'"><name> </name></wpt>'."\r\n";
 }
-/*
-$jdec=(json_decode($data, true));
-$jumlah=count($jdec[0]['latLngs']);
-for($i=0;$i<$jumlah;$i++){
-  $lat=$jdec[0]['latLngs'][$i]['lat'];
-  $lng=$jdec[0]['latLngs'][$i]['lng'];
-  echo '<wpt lat="'.$lat.'" lon="'.$lng.'"><name> </name></wpt>'."\r\n";
-}
-*/
+
 echo '</gpx></textarea><br>Nama file: <input name="nama" size="15"> <input name="donlot" value="download" type="submit"></form>';
 
 }
