@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+	textarea{
+		width:100%;
+		height:100px;
+		}
+</style>
+<script>
+	function distance(lat1, lon1, lat2, lon2, unit) {
+	if ((lat1 == lat2) && (lon1 == lon2)) {
+		return 0;
+	}
+	else {
+		var radlat1 = Math.PI * lat1/180;
+		var radlat2 = Math.PI * lat2/180;
+		var theta = lon1-lon2;
+		var radtheta = Math.PI * theta/180;
+		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+		if (dist > 1) {
+			dist = 1;
+		}
+		dist = Math.acos(dist);
+		dist = dist * 180/Math.PI;
+		dist = dist * 60 * 1.1515;
+		if (unit=="K") { dist = dist * 1609.344 }
+		if (unit=="N") { dist = dist * 0.8684 }
+		return dist;
+	}
+}
+</script>
+</head>
+<body>
+Link Registration Portal<br>
+<input id=pusat value='https://intel.ingress.com/intel?ll=-6.595031,106.793775&z=19&pll=-6.595161,106.793877'><p>
+Json Portal dari IITC<br>
+<textarea id=text></textarea>
+<br><button onclick=gaskan()>gaskan</button>
+
+<p>
+Hasil<br>
+<textarea id="hasil"></textarea>
+
+<script>
+function gaskan(){
+document.getElementById("hasil").value='';
+var txt = document.getElementById("text").value;
+var pusat = document.getElementById("pusat").value;
+var obj = JSON.parse(txt);
+var nama='';
+var lat='';var lng='';
+var intel='';
+var gbr='';
+var tulis='';
+
+zzz = pusat.split(/=|,/);
+var latpusat = zzz[4];
+var lngpusat = zzz[5];
+for(var i=0;i<obj.length;i++)
+{
+nama=obj[i]['title'];
+lat=obj[i]['coordinates']['lat'];
+lng=obj[i]['coordinates']['lng'];
+intel=obj[i]['link']['intel'];
+gbr=obj[i]['image'];
+jarak = Math.round(distance(latpusat, lngpusat, lat, lng, 'K'));
+tulis= jarak + '|' + nama + '|' + lat + '|' + lng + '|' + intel + '|' + gbr + "\n";
+if (jarak<2300){
+document.getElementById("hasil").value += tulis;
+}
+}
+}
+</script>
+
+</body>
+</html>
